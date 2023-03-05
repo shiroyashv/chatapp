@@ -41,7 +41,14 @@ INSTALLED_APPS = [
     # third party apps
     'rest_framework',
 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.vk',
+    'allauth.socialaccount.providers.yandex',
+
     # project apps
+    'user.apps.UserConfig',
     'chat.apps.ChatConfig',
 ]
 
@@ -68,6 +75,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # allauth
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -127,3 +137,22 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'user.User'
+
+
+# django-allauth
+# https://django-allauth.readthedocs.io/en/latest/index.html
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+ACCOUNT_PRESERVE_USERNAME_CASING = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_REQUIRED = False
